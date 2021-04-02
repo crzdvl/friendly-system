@@ -1,52 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styles from './AboutMe.module.css';
 import * as accountService from '../../services/account-service';
 
-class AboutMe extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {
-        name: '',
-        id: '',
-      },
-    };
-  }
+function AboutMe() {
+  const [id, setId] = useState('');
+  const [name, setName] = useState('');
 
-  componentDidMount() {
+  useEffect(() => {
     window.FB.getLoginStatus((response) => {
       if (response && response.status === 'connected') {
         window.FB.api('/me', (user) => {
-          this.setState({
-            user: {
-              name: user.name,
-              id: user.id,
-            },
-          });
+          setId(user.id);
+          setName(user.name);
         });
       }
     });
-  }
+  });
 
-  render() {
-    const { user } = this.state;
-    return (
-      <div className={styles.gradientBG}>
+  return (
+    <div className={styles.gradientBG}>
+      <div className={styles.container}>
         <div className={styles.container}>
-          <h1>{user.name}</h1>
-          <p>{user.id}</p>
-          <button
-            className={styles.button}
-            type="button"
-            onClick={accountService.logout}
-          >
+          <h1>{name}</h1>
+          <p>{id}</p>
+          <button className={styles.button} type="button" onClick={accountService.logout}>
             Logout
           </button>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default AboutMe;

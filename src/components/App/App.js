@@ -1,61 +1,48 @@
-import React, { Component } from 'react';
-import styles from './App.css';
+import React, { useState } from 'react';
+import { BoxLoading } from 'react-loadingg';
+import { Redirect, Route, Switch } from 'react-router-dom';
+
+import './App.css';
 
 import Main from '../../pages/Main/Main';
 import AboutMe from '../../pages/AboutMe/AboutMe';
 
-import RouterForLoggedInUser from '../../helpers/routers/RouterForLoggedInUser';
-import RouterForNotLoggedInUser from '../../helpers/routers/RouterForNotLoggedInUser';
-
 import { checkCurrentAccessToken } from '../../services/account-service';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    this.state = {
-      isLoading: true,
-      isLoggedIn: false,
-    };
-  }
-
-  async componentDidMount() {
-    const result = await checkCurrentAccessToken();
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (accessToken !== null && result) {
-      this.setState(() => ({
-        isLoggedIn: true,
-        isLoading: false,
-      }));
+  checkCurrentAccessToken().then((result) => {
+    if (result) {
+      setIsLoading(false);
+      setIsLoggedIn(true);
     } else {
       localStorage.removeItem('accessToken');
-      this.setState(() => ({
-        isLoading: false,
-      }));
+      setIsLoading(false);
+      setIsLoggedIn(false);
     }
-  }
+  });
 
-  // FIX: RouterForLoggedInUser work OK, but with RouterForNotLoggedInUser not
-  render() {
-    const { isLoggedIn, isLoading } = this.state;
-    return (
-      <div className={styles.page}>
-        <RouterForNotLoggedInUser
-          path="/"
-          component={Main}
-          isLoggedIn={isLoggedIn}
-          isLoading={isLoading}
-        />
-        <RouterForLoggedInUser
-          path="/aboutMe"
-          component={AboutMe}
-          isLoggedIn={isLoggedIn}
-          isLoading={isLoading}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="page">
+      <Switch>
+        {isLoading ? (
+          <BoxLoading />
+        ) : isLoggedIn ? (
+          <Switch>
+            <Route exact path="/aboutMe" component={AboutMe} />
+            <Redirect to="/aboutMe" />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Redirect to="/" />
+          </Switch>
+        )}
+      </Switch>
+    </div>
+  );
 }
 
 export default App;

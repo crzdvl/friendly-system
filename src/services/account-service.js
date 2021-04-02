@@ -27,12 +27,15 @@ function logout() {
 async function checkCurrentAccessToken() {
   const currentAccessToken = localStorage.getItem('accessToken');
 
-  const result = await axios.get(
-    `https://graph.facebook.com/debug_token?input_token=
-    ${currentAccessToken}&access_token=${process.env.REACT_APP_FACEBOOK_ACCESS_TOKEN}`,
-  );
+  if (currentAccessToken !== null) {
+    const result = await axios.get(
+      `https://graph.facebook.com/debug_token?input_token=
+    ${currentAccessToken}&access_token=${currentAccessToken}`,
+    );
 
-  return result.data.data.is_valid;
+    return result.data.data.is_valid;
+  }
+  return false;
 }
 
 export { login, logout, checkCurrentAccessToken };

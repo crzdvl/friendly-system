@@ -18,6 +18,7 @@
     "wrap-iife": 0,
     "class-methods-use-this": 0,
     "max-len": ["error", { "code": 130 }],
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "no-nested-ternary": 0
   }
 }
