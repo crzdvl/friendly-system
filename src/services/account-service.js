@@ -26,14 +26,24 @@ function logout() {
 
 async function checkCurrentAccessToken() {
   const currentAccessToken = localStorage.getItem('accessToken');
+  let result = false;
 
   if (currentAccessToken !== null) {
-    const result = await axios.get(
-      `https://graph.facebook.com/debug_token?input_token=
-    ${currentAccessToken}&access_token=${currentAccessToken}`,
-    );
+    await axios
+      .get('https://graph.facebook.com/debug_token', {
+        params: {
+          input_token: currentAccessToken,
+          access_token: currentAccessToken,
+        },
+      })
+      .then((response) => {
+        result = response.data.data.is_valid;
+      })
+      .catch(() => {
+        result = false;
+      });
 
-    return result.data.data.is_valid;
+    return result;
   }
   return false;
 }
