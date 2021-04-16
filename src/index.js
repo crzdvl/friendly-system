@@ -5,11 +5,13 @@ import history from './helpers/history';
 import App from './components/App/App';
 import initFacebookSdk from './helpers/facebook-sdk';
 
-initFacebookSdk();
+function startApp() {
+  render(
+    <Router history={history}>
+      <App />
+    </Router>,
+    document.getElementById('root'),
+  );
+}
 
-render(
-  <Router history={history}>
-    <App />
-  </Router>,
-  document.getElementById('root'),
-);
+initFacebookSdk().then(startApp);

@@ -1,16 +1,27 @@
-import axios from 'axios';
 import history from '../helpers/history';
 
 async function login() {
-  const { authResponse } = await new Promise(window.FB.login);
+  window.FB.getLoginStatus((response) => {
+    if (response.status === 'connected') {
+      localStorage.setItem('accessToken', response.authResponse.accessToken);
 
-  if (!authResponse) {
-    localStorage.removeItem('accessToken');
-    history.push('/');
-  } else {
-    localStorage.setItem('accessToken', authResponse.accessToken);
-    history.push('/aboutMe');
-  }
+      history.push('/aboutMe');
+    }
+    window.FB.login(
+      (loginResponse) => {
+        if (loginResponse.status === 'connected') {
+          localStorage.setItem('accessToken', loginResponse.authResponse.accessToken);
+
+          history.push('/aboutMe');
+        } else {
+          localStorage.removeItem('accessToken');
+
+          history.push('/');
+        }
+      },
+      { scope: 'user_photos, catalog_management' },
+    );
+  });
 }
 
 function logout() {
@@ -25,27 +36,17 @@ function logout() {
 }
 
 async function checkCurrentAccessToken() {
-  const currentAccessToken = localStorage.getItem('accessToken');
   let result = false;
 
-  if (currentAccessToken !== null) {
-    await axios
-      .get('https://graph.facebook.com/debug_token', {
-        params: {
-          input_token: currentAccessToken,
-          access_token: currentAccessToken,
-        },
-      })
-      .then((response) => {
-        result = response.data.data.is_valid;
-      })
-      .catch(() => {
-        result = false;
-      });
+  await window.FB.getLoginStatus((response) => {
+    if (response.status === 'connected') {
+      localStorage.setItem('accessToken', response.authResponse.accessToken);
 
-    return result;
-  }
-  return false;
+      result = true;
+    } else localStorage.removeItem('accessToken');
+  });
+
+  return result;
 }
 
 export { login, logout, checkCurrentAccessToken };

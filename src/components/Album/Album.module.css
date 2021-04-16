@@ -1,0 +1,23 @@
+*:focus {
+  outline: none;
+}
+
+.container {
+  width: 90vh;
+  height: 50vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerImg {
+  width: 33%;
+  margin-bottom: 2%;
+  cursor: pointer;
+}
+
+.img {
+  transition: all 3s ease-in;
+  width: 80%;
+}

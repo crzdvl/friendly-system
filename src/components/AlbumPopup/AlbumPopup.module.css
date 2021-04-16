@@ -1,0 +1,48 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  position: fixed;
+  top: 0px;
+}
+.container .content {
+  width: 100vh;
+  margin: auto;
+  display: flex;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #000;
+}
+
+.photoInfm {
+  width: 50%;
+}
+
+.photoInfmContanier {
+  margin: 20px 10px;
+  display: block;
+}
+
+.properety {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+}
+
+.properetyValue {
+  overflow-wrap: break-word;
+  font-size: 14px;
+  color: #000;
+}
+
+.containerImg {
+  width: 50%;
+  overflow: hidden;
+}
+
+.img {
+  width: 200%;
+}

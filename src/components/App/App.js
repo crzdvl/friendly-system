@@ -18,7 +18,6 @@ function App() {
       setIsLoading(false);
       setIsLoggedIn(true);
     } else {
-      localStorage.removeItem('accessToken');
       setIsLoading(false);
       setIsLoggedIn(false);
     }
@@ -44,5 +43,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
