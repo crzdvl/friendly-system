@@ -49,14 +49,12 @@ function AboutMe() {
   return (
     <div className={styles.gradientBG}>
       <div className={styles.container}>
-        <div className={styles.container}>
-          <h1>{name}</h1>
-          <p>{id}</p>
-          {photos.length && <Album photos={photos} />}
-          <button className={styles.button} type="button" onClick={accountService.logout}>
-            Logout
-          </button>
-        </div>
+        <h1>{name}</h1>
+        <p>{id}</p>
+        {photos.length && <Album photos={photos} />}
+        <button className={styles.button} type="button" onClick={accountService.logout}>
+          Logout
+        </button>
       </div>
     </div>
   );
