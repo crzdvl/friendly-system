@@ -1,0 +1,22 @@
+.icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 36px;
+  cursor: pointer;
+  padding: 20px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.sunIcon {
+  color: #fff;
+}
+
+.moonIcon {
+  color: #32ffe4;
+}
+
+.icon:hover {
+  opacity: 0.5;
+}

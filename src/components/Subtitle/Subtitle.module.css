@@ -1,0 +1,13 @@
+.subtitle {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 400;
+  margin: 5px 0 10px 0;
+}
+
+.light {
+  color: #fff;
+}
+
+.dark {
+  color: #32ffe4;
+}

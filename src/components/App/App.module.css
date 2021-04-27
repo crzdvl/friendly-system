@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.gradientBG {
+  height: 100vh;
+  background-size: 400% 400%;
+  animation: BackgroundGradient 30s ease infinite;
+}
+
+.light {
+  background: linear-gradient(132deg, #e3598b, #f38b79, #f8ae50);
+}
+
+.dark {
+  background: linear-gradient(132deg, #3c5aa8, #598ec8, #7b67ae);
+}
+
+@keyframes BackgroundGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

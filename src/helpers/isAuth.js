@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { BoxLoading } from 'react-loadingg';
 import { Redirect } from 'react-router-dom';
 
@@ -9,17 +9,19 @@ const isAuth = (Component) =>
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() => {
-      const result = checkCurrentAccessToken();
+    const fetchMyAPI = useCallback(async () => {
+      const result = setIsLoggedIn(await checkCurrentAccessToken());
 
       if (result) {
         setIsLoading(false);
-        setIsLoggedIn(true);
       } else {
         setIsLoading(false);
-        setIsLoggedIn(false);
       }
-    }, [isLoggedIn, isLoading]);
+    }, [isLoggedIn]);
+
+    useEffect(() => {
+      fetchMyAPI();
+    }, [fetchMyAPI]);
 
     return isLoading ? <BoxLoading /> : isLoggedIn ? <Component {...props} /> : <Redirect to="/" />;
   };
@@ -29,17 +31,19 @@ const isNotAuth = (Component) =>
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() => {
-      const result = checkCurrentAccessToken();
+    const fetchMyAPI = useCallback(async () => {
+      const result = setIsLoggedIn(await checkCurrentAccessToken());
 
       if (result) {
         setIsLoading(false);
-        setIsLoggedIn(true);
       } else {
         setIsLoading(false);
-        setIsLoggedIn(false);
       }
-    }, [isLoggedIn, isLoading]);
+    }, [isLoggedIn]);
+
+    useEffect(() => {
+      fetchMyAPI();
+    }, [fetchMyAPI]);
 
     return isLoading ? <BoxLoading /> : isLoggedIn ? <Redirect to="/aboutMe" /> : <Component {...props} />;
   };

@@ -5,6 +5,10 @@ import styles from './AboutMe.module.css';
 import * as accountService from '../../services/account-service';
 
 import Album from '../../components/Album/Album';
+import Button from '../../components/Button/Button';
+import Subtitle from '../../components/Subtitle/Subtitle';
+import Headline from '../../components/Headline/Headline';
+import ThemeSwitcher from '../../components/ThemeSwitcher/ThemeSwitcher';
 
 function AboutMe() {
   const [id, setId] = useState('');
@@ -47,15 +51,12 @@ function AboutMe() {
   }, []);
 
   return (
-    <div className={styles.gradientBG}>
-      <div className={styles.container}>
-        <h1>{name}</h1>
-        <p>{id}</p>
-        {photos.length && <Album photos={photos} />}
-        <button className={styles.button} type="button" onClick={accountService.logout}>
-          Logout
-        </button>
-      </div>
+    <div className={styles.container}>
+      <Headline text={name} />
+      <Subtitle text={id} />
+      {photos.length && <Album photos={photos} />}
+      <Button name="Logout" handleClick={accountService.logout} />
+      <ThemeSwitcher />
     </div>
   );
 }
