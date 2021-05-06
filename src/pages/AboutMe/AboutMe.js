@@ -54,7 +54,7 @@ function AboutMe() {
     <div className={styles.container}>
       <Headline text={name} />
       <Subtitle text={id} />
-      {photos.length && <Album photos={photos} />}
+      {photos.length ? <Album photos={photos}/> : <Subtitle text="Loading..." />}
       <Button name="Logout" handleClick={accountService.logout} />
       <ThemeSwitcher />
     </div>
