@@ -1,0 +1,19 @@
+.button {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    font-size: 36px;
+    cursor: pointer;
+    background-color: #ffffff00;
+    padding: 20px;
+    transition: 0.5s;
+    border: none;
+}
+
+.img {
+    width: 35px;
+}
+
+.button:hover {
+  opacity: 0.5;
+}

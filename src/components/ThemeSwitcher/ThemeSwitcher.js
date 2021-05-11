@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 import ThemeContext from '../../contexts/ThemeContext';
-// eslint-disable-next-line no-unused-vars
 import styles from './ThemeSwitcher.module.css';
 
 const ThemeSwitcher = () => {
