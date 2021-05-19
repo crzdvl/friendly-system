@@ -31,7 +31,7 @@ const isNotAuth = (Component) =>
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const fetchMyAPI = useCallback(async () => {
+    const fetchAPI = useCallback(async () => {
       const result = setIsLoggedIn(await checkCurrentAccessToken());
 
       if (result) {
@@ -42,8 +42,8 @@ const isNotAuth = (Component) =>
     }, [isLoggedIn]);
 
     useEffect(() => {
-      fetchMyAPI();
-    }, [fetchMyAPI]);
+      fetchAPI();
+    }, [fetchAPI]);
 
     return isLoading ? <BoxLoading /> : isLoggedIn ? <Redirect to="/aboutMe" /> : <Component {...props} />;
   };
